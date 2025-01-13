@@ -1,5 +1,69 @@
-/* styles.css */
+:root {
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+  --main-color: crimson;
+  --secondary-color: coral;
+  --bg-color: white;
+  --main-font-color: black;
+  --secondary-font-color: white;
+}
+
 body {
-    background-color: rebeccapurple;
-  }
+  background-color: var(--bg-color);
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+/* side bar */
   
+.side-bar {
+  background-color: var(--main-color);
+  height: 100vh;
+  padding: 5vh 1.5vw;
+  color: var(--secondary-font-color);
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.side-heading {
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+
+.all-todos {
+  font-size: 1.1rem;
+}
+
+.side-subheading {
+  font-weight: bold;
+}
+
+.add-project {
+  border: none;
+  background-color: var(--bg-color);
+  width: 75px;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+/* main */
+
+.content {
+  padding: 50px 40px;
+  font-weight: 900;
+  font-size: 1.7rem;
+}
+
+.add-todo {
+  border: none;
+  background-color: var(--main-color);
+  width: 75px;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--secondary-font-color);
+}
