@@ -1,26 +1,41 @@
+/* global */
+
 :root {
   font-family: Roboto, sans-serif;
   box-sizing: border-box;
-  --main-color: crimson;
-  --secondary-color: coral;
-  --bg-color: white;
-  --main-font-color: black;
-  --secondary-font-color: white;
+  --primary-color: crimson;
+  --secondary-color: white;
+  --tertiary-color: black;
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--secondary-color);
   display: grid;
   grid-template-columns: 1fr 3fr;
+}
+
+input, label, select, textarea {
+  display: block;
+}
+
+label {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+textarea {
+  resize: none;
 }
 
 /* side bar */
   
 .side-bar {
-  background-color: var(--main-color);
+  background-color: var(--primary-color);
   height: 100vh;
-  padding: 5vh 1.5vw;
-  color: var(--secondary-font-color);
+  padding: 35px 25px;
+  color: var(--secondary-color);
 
   display: flex;
   flex-direction: column;
@@ -42,28 +57,101 @@ body {
 
 .add-project {
   border: none;
-  background-color: var(--bg-color);
-  width: 75px;
+  background-color: var(--secondary-color);
+  width: 90px;
   padding: 5px;
   border-radius: 5px;
   font-weight: bold;
-  color: var(--main-color);
+  color: var(--primary-color);
+}
+
+.project-form {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  padding: 10px;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  display: none;
+}
+
+.submit-project {
+  border: None;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#project-title {
+  color: var(--primary-color);
+  font-weight: bold;
+  border-style: solid;
+  border-color: var(--primary-color);
+  border-radius: 5px;
+  padding: 3px;
 }
 
 /* main */
 
 .content {
   padding: 50px 40px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content-heading {
   font-weight: 900;
   font-size: 1.7rem;
 }
 
 .add-todo {
   border: none;
-  background-color: var(--main-color);
+  background-color: var(--primary-color);
   width: 75px;
   padding: 5px;
   border-radius: 5px;
   font-weight: bold;
-  color: var(--secondary-font-color);
+  color: var(--secondary-color);
+}
+
+.todo-form {
+  background-color: var(--primary-color);
+  padding: 10px;
+  border-radius: 15px;
+  color: var(--secondary-color);
+  width: 365px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  display: none;
+}
+
+.submit-todo {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 5px;
+  width: 75px;
+}
+
+#title, #description, #due-date, #priority {
+  /* background-color: var(--primary-color); */
+  border-color: var(--secondary-color);
+  border-style: solid;
+  color: var(--tertiary-color);
+  font-weight: bold;
+
+  border-radius: 5px;
+  padding: 3px;
 }
