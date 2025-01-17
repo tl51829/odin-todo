@@ -1,7 +1,8 @@
 import "./css/reset.css";
 import "./css/styles.css";
 
-import "./javascript/render.js";
-// import { greeting } from "./greeting.js";
+import App from "./javascript/app.js";
+import loadPage from "./javascript/render.js";
 
-console.log("hello");
+App.initialize();
+loadPage();
