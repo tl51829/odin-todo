@@ -54,6 +54,8 @@ submitProject.addEventListener("click", e => {
     if (titleValue) {
         App.addProject(titleValue);
         loadPage();
+        addProject.style.display = "block";
+        projectForm.style.display = "none";
     }
 });
 
@@ -61,12 +63,14 @@ submitTodo.addEventListener("click", e => {
     e.preventDefault();
     const titleValue = title.value;
     const descriptionValue = description.value;
-    const dueDateValue = new Date(dueDate.value);
+    const dueDateValue = dueDate.value;
     const priorityValue = priority.value;
 
     if (titleValue && descriptionValue && dueDateValue && priorityValue) {
-        App.currentProject.addTodo(titleValue, descriptionValue, format(dueDateValue, "MM/dd/yyyy"), priorityValue);
+        App.currentProject.addTodo(titleValue, descriptionValue, format(dueDateValue, "dd/MM/yyyy"), priorityValue);
         loadPage();
+        addTodo.style.display = "block";
+        todoForm.style.display = "none";
     }
 });
 
@@ -102,7 +106,38 @@ const loadCurrentProjectTodos = () => {
 }
 
 const loadTodo = (todo) => {
-    const paragraph = document.createElement("p");
-    paragraph.textContent = todo.title;
+    const paragraph = document.createElement("div");
+    paragraph.classList.add("todo");
+    paragraph.innerHTML = `
+    <div class="todo-info">
+        <input type="checkbox" id="is-done-${todo.title}">
+        <span class="block-title">${todo.title}</span>
+        <span class="priority-${todo.priority}">~${todo.priority}~</span>
+    </div>
+    <div class="todo-extra" id="todo-extra-${todo.title}">
+        <p class="block-date">${todo.dueDate}</p>
+        <p class="block-description">${todo.description}</p>
+    </div>
+    `
     todos.appendChild(paragraph);
+
+    initializeTodo(paragraph, todo);
+    initializeIsDone(todo);
+}
+
+const initializeTodo = (todoElement, todoObject) => {
+    todoElement.addEventListener("click", e => {
+        const todoExtra = document.getElementById(`todo-extra-${todoObject.title}`);
+        if (todoExtra) {
+            todoExtra.classList.toggle("todo-extra");
+        }
+    })
+}
+
+const initializeIsDone = (todoObject) => {
+   const isDone = document.getElementById(`is-done-${todoObject.title}`);
+   isDone.addEventListener("click", e => {
+        App.currentProject.deleteTodo(todoObject);
+        loadPage();
+    })
 }
