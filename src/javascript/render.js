@@ -9,6 +9,7 @@ const submitProject = document.getElementsByClassName("submit-project")[0];
 const projectTitle = document.getElementById("project-title");
 
 const todos = document.getElementsByClassName("todos")[0];
+const todoHeading = document.getElementsByClassName("content-heading")[0];
 const addTodo = document.getElementsByClassName("add-todo")[0];
 const todoForm = document.getElementsByClassName("todo-form")[0];
 const submitTodo = document.getElementsByClassName("submit-todo")[0];
@@ -79,6 +80,7 @@ submitTodo.addEventListener("click", e => {
 export default function loadPage() {
     projects.textContent = "";
     todos.textContent = "";
+    todoHeading.textContent = App.currentProject.title;
     App.projects.forEach(project => {
         loadProject(project);
     });
@@ -96,6 +98,14 @@ const loadProject = (project) => {
     }
     heading.textContent += project.title;
     projects.appendChild(heading);
+    initializeProject(heading, project);
+}
+
+const initializeProject = (projectElement, projectObject) => {
+    projectElement.addEventListener("click", e => {
+        App.currentProject = projectObject;
+        loadPage();
+    });
 }
 
 const loadCurrentProjectTodos = () => {

@@ -39,13 +39,12 @@ textarea {
 
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .projects {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .side-heading {
@@ -54,12 +53,13 @@ textarea {
   text-decoration-line: underline;
 }
 
-.all-todos {
-  font-size: 1.1rem;
-}
-
 .side-subheading {
   font-weight: bold;
+  padding: 3px 6px;
+}
+
+.side-subheading:hover {
+  background-color: coral;
 }
 
 .add-project {

@@ -13,6 +13,7 @@ export default class App {
     static addProject(titleValue) {
         const newProject = new Project(titleValue);
         this.projects.push(newProject);
+        this.currentProject = newProject;
     }
     
 }
