@@ -68,7 +68,7 @@ submitTodo.addEventListener("click", e => {
     const priorityValue = priority.value;
 
     if (titleValue && descriptionValue && dueDateValue && priorityValue) {
-        App.currentProject.addTodo(titleValue, descriptionValue, format(dueDateValue, "dd/MM/yyyy"), priorityValue);
+        App.currentProject.addTodo(titleValue, descriptionValue, dueDateValue, priorityValue);
         loadPage();
         addTodo.style.display = "block";
         todoForm.style.display = "none";
@@ -133,21 +133,124 @@ const loadTodo = (todo) => {
 
     initializeTodo(paragraph, todo);
     initializeIsDone(todo);
+    initializeEdit(paragraph, todo);
 }
 
 const initializeTodo = (todoElement, todoObject) => {
     todoElement.addEventListener("click", e => {
         const todoExtra = document.getElementById(`todo-extra-${todoObject.title}`);
-        if (todoExtra) {
-            todoExtra.classList.toggle("todo-extra");
-        }
+        todoExtra.classList.toggle("todo-extra");
     })
 }
 
 const initializeIsDone = (todoObject) => {
    const isDone = document.getElementById(`is-done-${todoObject.title}`);
    isDone.addEventListener("click", e => {
+        e.stopPropagation();
         App.currentProject.deleteTodo(todoObject);
         loadPage();
-    })
+    }, true)
+}
+
+const initializeEdit = (todoElement, todoObject) => {
+    const title = todoElement.children[0].children[1];
+    const priority = todoElement.children[0].children[2];
+    const date = todoElement.children[1].children[0];
+    const description = todoElement.children[1].children[1];
+
+    title.addEventListener("click", e => {
+        e.stopPropagation();
+        const input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("value", title.textContent);
+        input.classList.add("block-title");
+        todoElement.children[0].replaceChild(input, title);
+
+        input.addEventListener("blur", e => {
+            todoObject.updateProperty(input.value, "title");
+            loadPage();
+        })
+
+        input.addEventListener("keyup", e => {
+            if (e.key === "Enter") {
+                todoObject.updateProperty(input.value, "title");
+                loadPage();
+            }
+        })
+
+        input.addEventListener("click", e => {
+            e.stopPropagation();
+        })
+    }, true)
+
+    priority.addEventListener("click", e => {
+        e.stopPropagation();
+        const input = document.createElement("select");
+        input.setAttribute("name", "priority");
+        input.setAttribute("selected", priority.value);
+
+        input.innerHTML = `
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+        `
+
+        if (priority.textContent === "~high~") {
+            input.children[0].setAttribute("selected", "");
+        } else if (priority.textContent === "~medium~") {
+            input.children[1].setAttribute("selected", "");
+        } else {
+            input.children[2].setAttribute("selected", "");
+
+        }
+
+        todoElement.children[0].replaceChild(input, priority);
+
+        input.addEventListener("change", e => {
+            todoObject.updateProperty(input.value, "priority");
+            loadPage();
+        })
+
+        input.addEventListener("click", e => {
+            e.stopPropagation();
+        })
+    }, true)
+
+    date.addEventListener("click", e => {
+        e.stopPropagation();
+        const input = document.createElement("input");
+        input.setAttribute("type", "date");
+        input.setAttribute("value", date.textContent);
+        input.classList.add("block-date");
+        todoElement.children[1].replaceChild(input, date);
+
+        input.addEventListener("change", e => {
+            todoObject.updateProperty(input.value, "dueDate");
+            loadPage();
+        })
+
+        input.addEventListener("click", e => {
+            e.stopPropagation();
+        })
+    }, true)
+
+    description.addEventListener("click", e => {
+        e.stopPropagation();
+        const input = document.createElement("textarea");
+        input.setAttribute("rows", 10);
+        input.setAttribute("cols", 50);
+        input.setAttribute("class", "block-description");
+        input.textContent = description.textContent;
+        todoElement.children[1].replaceChild(input, description);
+
+        input.addEventListener("change", e => {
+            todoObject.updateProperty(input.value, "description");
+            loadPage();
+        })
+
+        input.addEventListener("click", e => {
+            e.stopPropagation();
+        })
+    }, true)
+
 }

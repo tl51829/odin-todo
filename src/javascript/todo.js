@@ -12,12 +12,10 @@ export default class Todo {
         this.priority = priority;
     }
 
-    updateProperty({
+    updateProperty(
         value,
         property,
-        project
-    }) {
+    ) {
         this[property] = value
-        project.updateTodo(this)
     }
 }

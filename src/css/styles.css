@@ -136,7 +136,7 @@ textarea {
 }
 
 .block-title {
-  flex-grow: 1;
+  margin-right: auto;
 }
 
 .priority-high {
