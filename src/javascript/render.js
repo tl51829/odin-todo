@@ -252,5 +252,4 @@ const initializeEdit = (todoElement, todoObject) => {
             e.stopPropagation();
         })
     }, true)
-
 }

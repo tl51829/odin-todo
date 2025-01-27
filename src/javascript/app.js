@@ -5,9 +5,7 @@ export default class App {
     static currentProject = null;
 
     static initialize() {
-        const allTodos = new Project("All Todos");
-        this.projects.push(allTodos);
-        this.currentProject = allTodos;
+        this.addProject("All Todos");
     }
 
     static addProject(titleValue) {
